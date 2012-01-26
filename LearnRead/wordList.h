@@ -13,9 +13,15 @@
     
     NSMutableArray *listOfWords;
 	int _lastran;
+    
+    NSMutableArray *_last5;
 	
 }
 
+@property (nonatomic,retain) NSMutableArray *_last5;
+
 - (void) BuildWords;
 - (NSString*) GetRandomWord;
+- (int) GetRandomNumber:(int)max;
+
 @end

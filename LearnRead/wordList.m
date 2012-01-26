@@ -11,9 +11,12 @@
 
 @implementation wordList
 
+@synthesize _last5;
+
 
 - (void) BuildWords
 {
+    _last5 = [[NSMutableArray alloc] initWithCapacity:5];
     
 	if ( listOfWords == nil )
 		listOfWords = [[NSMutableArray alloc] init];
@@ -24,12 +27,57 @@
 	[listOfWords addObject:@"cat"];
 	[listOfWords addObject:@"hat"];	
 	[listOfWords addObject:@"mad"];
-    /*[listOfWords addObject:@"potato"];
-    [listOfWords addObject:@"car"];
-    [listOfWords addObject:@"inviting"];
-    [listOfWords addObject:@"shining"];
-    [listOfWords addObject:@"skating"];
-    [listOfWords addObject:@"taking"];
+    [listOfWords addObject:@"sad"];
+    [listOfWords addObject:@"bad"];
+    [listOfWords addObject:@"tap"];
+    [listOfWords addObject:@"pat"];
+    [listOfWords addObject:@"mop"];    
+    [listOfWords addObject:@"bay"]; 
+    [listOfWords addObject:@"day"]; 
+    [listOfWords addObject:@"hay"]; 
+    [listOfWords addObject:@"may"]; 
+    [listOfWords addObject:@"pay"]; 
+    [listOfWords addObject:@"ray"]; 
+    [listOfWords addObject:@"say"]; 
+    [listOfWords addObject:@"way"];         
+    [listOfWords addObject:@"ate"];     
+    [listOfWords addObject:@"age"];     
+    [listOfWords addObject:@"bow"]; 
+    [listOfWords addObject:@"how"]; 
+    [listOfWords addObject:@"now"]; 
+    [listOfWords addObject:@"cow"];     
+    [listOfWords addObject:@"tie"]; 
+    [listOfWords addObject:@"pie"]; 
+    [listOfWords addObject:@"lie"]; 
+    [listOfWords addObject:@"die"]; 
+    [listOfWords addObject:@"cry"]; 
+    [listOfWords addObject:@"dry"]; 
+    [listOfWords addObject:@"fry"]; 
+    [listOfWords addObject:@"try"];     
+    [listOfWords addObject:@"toe"]; 
+    [listOfWords addObject:@"hoe"];     
+    [listOfWords addObject:@"paw"]; 
+    [listOfWords addObject:@"raw"]; 
+    [listOfWords addObject:@"saw"];     
+    [listOfWords addObject:@"bow"]; 
+    [listOfWords addObject:@"low"]; 
+    [listOfWords addObject:@"mow"]; 
+    [listOfWords addObject:@"tow"];     
+    [listOfWords addObject:@"all"];     
+    [listOfWords addObject:@"dad"]; 
+    [listOfWords addObject:@"mom"];     
+    [listOfWords addObject:@"boy"]; 
+    [listOfWords addObject:@"his"]; 
+    [listOfWords addObject:@"her"]; 
+    [listOfWords addObject:@"law"]; 
+    [listOfWords addObject:@"paw"]; 
+    [listOfWords addObject:@"raw"]; 
+    [listOfWords addObject:@"saw"]; 
+    [listOfWords addObject:@"get"]; 
+    [listOfWords addObject:@"got"]; 
+    [listOfWords addObject:@"say"]; 
+    
+    /*[listOfWords addObject:@"taking"];
     [listOfWords addObject:@"deciding"];
     [listOfWords addObject:@"leaving"];
     [listOfWords addObject:@"tasting"];
@@ -176,9 +224,39 @@
 	do{
 		ran = arc4random() % listOfWords.count;
 	}while (_lastran == ran);
+    
+    // Check for 5 last duplicates before sending it back
+    if ( [_last5 containsObject:[listOfWords objectAtIndex:ran]] == YES )
+        [self GetRandomWord];
+    else
+    {
+        if ( [_last5 count] == 5 ) {
+            [_last5 removeObjectAtIndex:0];
+        }
+        
+        [_last5 addObject:[listOfWords objectAtIndex:ran]];                    
+    }
 	
 	return [listOfWords objectAtIndex:ran];
 
+}
+
+- (int) GetRandomNumber:(int)max
+{
+    int ran = -1;
+    do {
+        ran = arc4random() & max;
+    } while ( _lastran == ran);
+    
+    return ran;
+}
+
+- (void)dealloc
+{
+    [super dealloc];
+    
+    [listOfWords release];
+    listOfWords = nil;
 }
 
 @end
